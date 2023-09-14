@@ -68,11 +68,7 @@ export class ItemsComponent implements OnInit {
       this._itemsService.addItem(item);
     }
 
-    showSuccessMessage();
-
-    setTimeout(() => {
-      hideSuccessMessage();
-    }, 3000);
+    this.showMessage(itemsData);
   }
 
   uniqueIdValidator(index: number): ValidatorFn {
@@ -88,5 +84,19 @@ export class ItemsComponent implements OnInit {
   hasError(index: number, controlName: string, errorType: string) {
     const control = this.dynamic_field.at(index).get(controlName);
     return control?.hasError(errorType) && control.touched;
+  }
+
+  showMessage(itemsData:Item[]){
+    if(itemsData.length === 1){
+      this.message="Item Saved Successfully";
+    }else{
+      this.message="Items Saved Successfully";
+    }
+
+    showSuccessMessage();
+
+    setTimeout(() => {
+      hideSuccessMessage();
+    }, 3000);
   }
 }

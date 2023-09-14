@@ -59,11 +59,7 @@ export class CategoriesComponent implements OnInit {
     this._categoriesService.removeAllCategories();
     this._categoriesService.addCategories(categoriesData);
 
-    showSuccessMessage();
-
-    setTimeout(() => {
-      hideSuccessMessage();
-    }, 3000);
+    this.showMessage(categoriesData);
   }
 
   uniqueIdValidator(index: number): ValidatorFn {
@@ -90,4 +86,17 @@ export class CategoriesComponent implements OnInit {
     return !!control?.hasError(errorName) && !!control.touched;
   }
 
+  showMessage(categoriesData:Categories[]){
+    if(categoriesData.length === 1){
+      this.message="Category Saved Successfully";
+    }else{
+      this.message="Categories Saved Successfully";
+    }
+
+    showSuccessMessage();
+
+    setTimeout(() => {
+      hideSuccessMessage();
+    }, 3000);
+  }
 }
