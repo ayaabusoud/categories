@@ -1,0 +1,27 @@
+.save {
+  left: 88.5%!important;
+}
+
+.dropdown{
+  outline: 0;
+  border-color: #dee2e6;
+  border-radius: 0.375rem;
+  color: #919191;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.custom-select-wrapper {
+  position: relative;
+
+}
+
+.custom-select-arrow {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+}
+
+

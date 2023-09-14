@@ -1,0 +1,12 @@
+/* You can add global styles to this file, and also import other style files */
+
+:root {
+  --form-row-width: 40px;
+  --form-row-height: 35px;
+  --primary-color:  rgb(68, 143, 218);
+}
+.input-field{
+  height: var(--form-row-height) !important;
+  margin-top: 4px ;
+}
+

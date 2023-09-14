@@ -1,0 +1,55 @@
+<div>
+  <form [formGroup]="categoriesForm">
+    <div class="row">
+      <div class="col-2">
+        <label for="id 0">Category Id</label>
+      </div>
+      <div class="col-2">
+        <label for="name 0">Category Name</label>
+      </div>
+    </div>
+    <div class="row">
+      <ng-container formArrayName="dynamic_field"
+        *ngFor="let category of dynamic_field.controls; let i = index">
+        <div [formGroupName]="i" class="col-12 mb-2">
+          <div class="form-group row">
+            <div class="col-2">
+              <input
+                name="id" id="id {{i}}" class="form-control input-field"
+                type="number"
+                formControlName="id" placeholder="id"
+                required min="0"
+                autocomplete="off"
+                [ngClass]="{'is-invalid': hasError(i, 'id', 'required') || hasError(i, 'id', 'idExists')}" />
+              <div *ngIf="hasError(i, 'id', 'min')" class="text-danger">Id should be greater than or equal to 1</div>
+              <div *ngIf="hasError(i, 'id', 'required')" class="text-danger">Id is required</div>
+              <div *ngIf="hasError(i, 'id', 'idExists')" class="text-danger">Id should be unique</div>
+            </div>
+            <div class="col-2">
+              <input
+                name="name" id="name {{i}}" class="form-control input-field"
+                type="text" formControlName="name" placeholder="name"
+                required autocomplete="off"
+                [ngClass]="{'is-invalid': hasError(i, 'name', 'required') || hasError(i, 'name', 'nameExists')}" />
+
+              <div *ngIf="hasError(i, 'name', 'required')" class="text-danger">Name is required</div>
+              <div *ngIf="hasError(i, 'name', 'nameExists')" class="text-danger">Name should be unique</div>
+            </div>
+            <div class="col-2">
+              <app-delete-button *ngIf="dynamic_field.length != 1" (deleteButtonClick)="removeField(i)"></app-delete-button>
+              <app-add-button *ngIf="i === dynamic_field.length - 1" (addButtonClick)="addField()"></app-add-button>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+
+    <app-save-button class="position-relative start-50"
+      [valid]="categoriesForm.valid" (saveButtonClick)="saveCategories()"></app-save-button>
+
+      <div class="d-flex justify-content-start mt-1">
+        <p class="alert alert-success w-50 text-center px-5 py-2 w-auto d-none"
+          role="alert">Categories Saved Successfully</p>
+      </div>
+  </form>
+</div>

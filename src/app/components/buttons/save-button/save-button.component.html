@@ -1,0 +1,4 @@
+<button class="save-button btn text-white d-flex align-items-center justify-content-center position-relative" type="button"
+  (click)="saveButtonClick.emit()" [ngClass]="{'btn-secondary': !valid, 'active-save': valid}" [disabled]="!valid">
+  Save
+</button>
