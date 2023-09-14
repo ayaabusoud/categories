@@ -47,6 +47,7 @@
                     *ngFor="let category of categoriesData">{{ category.name }}</option>
                 </select>
                 <fa-icon [icon]="arrowDownIcon" class="custom-select-arrow"></fa-icon>
+                <div *ngIf="hasError(i, 'category', 'required')" class="text-danger">Price should be greater than or equal to 0</div>
               </div>
             </div>
             <div class="col-2">

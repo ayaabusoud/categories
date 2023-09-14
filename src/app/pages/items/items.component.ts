@@ -48,7 +48,7 @@ export class ItemsComponent implements OnInit {
       id: new FormControl(itemdData ? itemdData.id : '', { validators: [Validators.required, this.uniqueIdValidator(index), Validators.min(1)] }),
       name: new FormControl(itemdData ? itemdData.name : '', { validators: [Validators.required] }),
       price: new FormControl(itemdData ? itemdData.price : '', { validators: [Validators.required, Validators.min(0)] }),
-      category: new FormControl(itemdData ? itemdData.category : ''),
+      category: new FormControl(itemdData ? itemdData.category : '',{ validators: [Validators.required] }),
     });
     this.dynamic_field.push(itemFormGroup);
   }
