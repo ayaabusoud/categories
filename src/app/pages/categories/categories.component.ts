@@ -39,7 +39,7 @@ export class CategoriesComponent implements OnInit {
     const index = this.dynamic_field.length;
     const categoryFormGroup = new FormGroup({
       id: new FormControl(categoryData?.id || '', {
-        validators: [Validators.required, this.uniqueIdValidator(index)],
+        validators: [Validators.required, this.uniqueIdValidator(index),Validators.min(1)],
       }),
       name: new FormControl(categoryData?.name || '', {
         validators: [Validators.required, this.uniqueNameValidator(index)],

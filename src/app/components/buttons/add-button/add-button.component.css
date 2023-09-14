@@ -1,7 +1,7 @@
 .add-button
 {
-  height: var(--row-height);
-  width: var(--row-width);
+  height: var(--form-row-height);
+  width: var(--form-row-width);
   background-color:  var( --primary-color);
   margin-top: 4px ;
 }

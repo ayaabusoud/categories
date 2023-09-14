@@ -1,7 +1,7 @@
 .delete-button
 {
-  height: var(--row-height);
-  width: var(--row-width);
+  height: var(--form-row-height);
+  width: var(--form-row-width);
   background-color:  rgb(151, 36, 36);
   margin-top: 4px ;
 }
