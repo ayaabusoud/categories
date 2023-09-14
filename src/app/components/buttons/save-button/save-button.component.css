@@ -1,0 +1,10 @@
+.save-button {
+  width: 90px !important;
+  height: 35px;
+  margin-top: 12px;
+  border-radius: 5px !important;
+}
+
+.active-save{
+  background-color:var( --primary-color) !important;
+}

@@ -1,0 +1,18 @@
+.tab-border{
+  border-bottom: 2px solid rgb(229,229,229);
+}
+
+.tab{
+  color: #919191;
+}
+
+.active{
+  color: black;
+}
+
+.line{
+  top: 30px;
+  height: 5px;
+  background-color: var(--primary-color);
+  border-radius: 10px;
+}
