@@ -5,8 +5,8 @@ import { Categories } from '../../interfaces/categories';
 import { Item } from '../../interfaces/item';
 import { ItemsService } from '../../services/items/items.service';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
-import { hideSuccessMessage, showSuccessMessage } from 'src/app/utlis/alertMessage';
-import { idValidator } from 'src/app/utlis/validators';
+import { showSuccessMessage } from 'src/app/utlis/alertMessage';
+import { validator } from 'src/app/utlis/validators';
 
 @Component({
   selector: 'app-items',
@@ -46,7 +46,7 @@ export class ItemsComponent implements OnInit {
     const index = this.dynamic_field.length;
     const itemFormGroup = new FormGroup({
       id: new FormControl(itemdData ? itemdData.id : '', { validators: [Validators.required, this.uniqueIdValidator(index), Validators.min(1)] }),
-      name: new FormControl(itemdData ? itemdData.name : '', { validators: [Validators.required] }),
+      name: new FormControl(itemdData ? itemdData.name : '', { validators: [Validators.required,this.uniqueNameValidator(index)] }),
       price: new FormControl(itemdData ? itemdData.price : '', { validators: [Validators.required, Validators.min(0)] }),
       category: new FormControl(itemdData ? itemdData.category : '',{ validators: [Validators.required] }),
     });
@@ -56,18 +56,14 @@ export class ItemsComponent implements OnInit {
   removeField(i: number) {
     this.dynamic_field.removeAt(i);
     this._itemsService.removeItem(i);
+    if(this.dynamic_field.length === 0){
+      this.addField();
+    }
   }
-
 
   saveItems() {
     const itemsData = this.dynamic_field.value;
-
-    this._itemsService.removeAllItems();
-
-    for (const item of itemsData) {
-      this._itemsService.addItem(item);
-    }
-
+    this._itemsService.addItems(itemsData)
     this.showMessage(itemsData);
   }
 
@@ -76,8 +72,17 @@ export class ItemsComponent implements OnInit {
       const value = control.value;
       const fields = this.dynamic_field.value
 
-      return idValidator(fields, index, value);
+      return validator(fields, index, value,"id");
 
+    }
+  }
+
+  uniqueNameValidator(index: number): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const value = control.value;
+      const fields = this.dynamic_field.value
+
+      return validator(fields, index, value,"name");
     }
   }
 
@@ -94,9 +99,5 @@ export class ItemsComponent implements OnInit {
     }
 
     showSuccessMessage();
-
-    setTimeout(() => {
-      hideSuccessMessage();
-    }, 3000);
   }
 }

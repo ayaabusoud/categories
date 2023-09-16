@@ -12,6 +12,11 @@
   appearance: none;
 }
 
+.errorBorder{
+  border-color: #dc3545;
+
+}
+
 .custom-select-wrapper {
   position: relative;
 

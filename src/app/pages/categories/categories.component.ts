@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, FormControl, Validators, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
 import { CategoriesService } from '../../services/categories/categories-service.service';
 import { Categories } from '../../interfaces/categories';
-import { hideSuccessMessage, showSuccessMessage } from 'src/app/utlis/alertMessage';
-import { idValidator, nameValidator } from 'src/app/utlis/validators';
+import {  showSuccessMessage } from 'src/app/utlis/alertMessage';
+import { validator } from 'src/app/utlis/validators';
 
 @Component({
   selector: 'app-categories',
@@ -52,11 +52,13 @@ export class CategoriesComponent implements OnInit {
   removeField(i: number) {
     this.dynamic_field.removeAt(i);
     this._categoriesService.removeCategory(i);
+    if(this.dynamic_field.length === 0){
+      this.addField();
+    }
   }
 
   saveCategories() {
     const categoriesData = this.dynamic_field.value;
-    this._categoriesService.removeAllCategories();
     this._categoriesService.addCategories(categoriesData);
 
     this.showMessage(categoriesData);
@@ -67,7 +69,7 @@ export class CategoriesComponent implements OnInit {
       const value = control.value;
       const fields = this.dynamic_field.value
 
-      return idValidator(fields, index, value);
+      return validator(fields, index, value,"id");
 
     }
   }
@@ -77,7 +79,7 @@ export class CategoriesComponent implements OnInit {
       const value = control.value;
       const fields = this.dynamic_field.value
 
-      return nameValidator(fields, index, value);
+      return validator(fields, index, value,"name");
     }
   }
 
@@ -94,9 +96,5 @@ export class CategoriesComponent implements OnInit {
     }
 
     showSuccessMessage();
-
-    setTimeout(() => {
-      hideSuccessMessage();
-    }, 3000);
   }
 }

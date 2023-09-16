@@ -1,34 +1,11 @@
 
-export function idValidator(formData: any,index:number, value:any){
+export function validator(formData: FormData[], index: number, value: string, type: string) {
+  if (!value) return null;
 
-    if (!value) {
-      return null;
-    }
+  const key = type === "id" ? "id" : "name";
+  const isExists = formData
+    .filter((field: any, i: number) => i !== index)
+    .some((field: any) => field[key].toString().toLowerCase() === value.toString().toLowerCase());
 
-    const otherIds = formData
-      .filter((item: any, i: number) => i !== index)
-      .map((category: any) => category.id);
-
-    const isExists = otherIds.includes(value);
-
-    return isExists ? { idExists: true } : null;
+  return isExists ? { [`${key}Exists`]: true } : null;
 }
-
-
-export function nameValidator(formData: any,index:number, value:any){
-
-  if (!value) {
-    return null;
-  }
-
-  const otherCategories = formData.filter(
-    (item: any, i: number) => i !== index
-  );
-
-  const isExists = otherCategories.some(
-    (category: any) => category.name.toLowerCase() === value.toLowerCase()
-  );
-
-  return isExists ? { nameExists: true } : null;
-}
-
